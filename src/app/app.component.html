@@ -1,0 +1,34 @@
+<div class="container-fluid">
+  <h1>Tree app</h1>
+  <p class="lead">
+    Visualize a list of tree species.
+  </p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Specie</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tree of treeList | paginate: { itemsPerPage: 3, currentPage: page };">
+        <td>{{ tree.specie }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <pagination-template #p="paginationApi" (pageChange)="page = $event">
+    <nav aria-label="Tree navigation">
+     <ul class="pagination justify-content-center">
+       <li class="page-item" [class.disabled]="p.isFirstPage()">
+         <a (click)="p.previous()" class="page-link" href="#" tabindex="-1">Previous</a>
+       </li>
+       <li *ngFor="let page of p.pages" [class.active]="p.getCurrent() === page.value" class="page-item">
+         <a (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value" class="page-link" href="#">{{ page.label }}</a>
+         <a *ngIf="p.getCurrent() === page.value" class="page-link" href="#">{{ page.label }}</a>
+       </li>
+       <li class="page-item" [class.disabled]="p.isLastPage()">
+         <a (click)="p.next()" class="page-link" href="#">Next</a>
+       </li>
+     </ul>
+    </nav>
+  </pagination-template>
+</div>
