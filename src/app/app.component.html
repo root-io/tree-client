@@ -10,12 +10,13 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let tree of treeList | paginate: { itemsPerPage: 3, currentPage: page };">
+      <tr *ngFor="let tree of treeList | paginate: { itemsPerPage: 3, currentPage: p, totalItems: total }">
         <td>{{ tree.specie }}</td>
       </tr>
     </tbody>
   </table>
-  <pagination-template #p="paginationApi" (pageChange)="page = $event">
+  <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
+  <!-- <pagination-template #p="paginationApi" (pageChange)="getPage($event)">
     <nav aria-label="Tree navigation">
      <ul class="pagination justify-content-center">
        <li class="page-item" [class.disabled]="p.isFirstPage()">
@@ -30,5 +31,5 @@
        </li>
      </ul>
     </nav>
-  </pagination-template>
+  </pagination-template> -->
 </div>

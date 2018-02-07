@@ -7,18 +7,25 @@ import { TreeService } from './tree.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  p: number = 1;
   treeList: Array<string> = [];
+  p: number = 1;
+  total: number;
 
   constructor(private treeService: TreeService) {
 
   }
 
-  ngOnInit() {
-    return this.treeService.list()
-      .then(data => {
-        this.treeList = data;
+  getPage(page: number) {
+    return this.treeService.list(page)
+      .then(res => {
+        this.treeList = res.data;
+        this.total = res.total;
+        this.p = page;
       })
       .catch(console.error);
+  }
+
+  ngOnInit() {
+    return this.getPage(1);
   }
 }

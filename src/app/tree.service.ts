@@ -10,9 +10,9 @@ export class TreeService {
     this.contentHeader = new HttpHeaders().set('Content-Type', 'application/json');
   }
 
-  list(): Promise<any> {
+  list(page: number): Promise<any> {
     return this.http.get(
-      environment.apiUrl + '/trees', { headers: this.contentHeader }
+      environment.apiUrl + '/trees?page=' + page, { headers: this.contentHeader }
     )
     .toPromise();
   }
